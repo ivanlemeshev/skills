@@ -2,15 +2,13 @@
 
 Reusable skills in the [Agent Skills format](https://agentskills.io/specification). Each skill has one source package for compatible agents.
 
-## Available skills
+## Skill packages
 
-| Skill        | Purpose                                                           | Requirements                                     |
-| ------------ | ----------------------------------------------------------------- | ------------------------------------------------ |
-| `lem-review` | Review pull requests, branches, staged changes, or local changes. | Git. GitHub CLI for GitHub pull request reviews. |
+Browse [skills/](skills/) for the available packages. Each package has a `README.md` with its purpose, requirements, installation commands, and usage. Its `SKILL.md` contains the agent instructions.
 
 ## Install
 
-Use GitHub CLI with `gh skill` support. Replace `SKILL_NAME` with a name from the table above.
+Use GitHub CLI with `gh skill` support. Replace `SKILL_NAME` with a package name from `skills/`.
 
 For Codex:
 
@@ -33,14 +31,17 @@ Invoke the installed skill by its name. Codex uses `$SKILL_NAME`. Claude Code us
 ```text
 skills/
   lem-example/
+    README.md
     SKILL.md
     references/
       guide.md
 ```
 
-Add each new skill under `skills/lem-<name>/`. Use the same name in the folder and the `SKILL.md` frontmatter. The frontmatter requires `name` and `description`. Keep instructions and resources portable. Add references, scripts, or assets only when the skill needs them. Add the skill to the table above.
+Add each new skill under `skills/lem-<name>/`. Use the same name in the folder and the `SKILL.md` frontmatter. The frontmatter requires `name` and `description`. Keep instructions and resources portable. Add references, scripts, or assets only when the skill needs them. Keep skill-specific documentation in the package's `README.md`. Keep the root README limited to repository-wide guidance.
 
 ## Validate
+
+Run the helper tests and skill validation with `make check`. The tests use temporary directories. They do not write Git state.
 
 This command checks the skill format without publishing a release.
 
@@ -60,7 +61,7 @@ Repeat with `--agent claude-code` and a different temporary directory.
 
 This repository uses a `VERSION` file as a versioning convention. The Agent Skills standard does not require this file. Its value matches the release tag: `1.0.0` produces `v1.0.0`.
 
-Update the skills and README. Run this command from `main` with Make, Git, GitHub CLI, and a POSIX shell. Replace `1.0.1` with the new version:
+Update the skills and their documentation. Run this command from `main` with Make, Git, GitHub CLI, and a POSIX shell. Replace `1.0.1` with the new version:
 
 ```sh
 make release VERSION=1.0.1
