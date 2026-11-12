@@ -4,6 +4,7 @@ VERSION ?= $(shell cat VERSION)
 .PHONY: check release
 
 check:
+	python3 -B -m unittest discover -s skills/lem-factory/tests -v
 	gh skill publish --dry-run
 
 release: check
