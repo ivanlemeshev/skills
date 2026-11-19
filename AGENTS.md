@@ -1,13 +1,8 @@
-# Agent instructions
+# AGENTS.md
 
-Use Simplified Technical English in repository text and code comments. Use one idea per sentence. Use LF line endings.
-
-Use the Agent Skills standard. Keep one source package per skill under `skills/`. Keep personal skill folders and names in the `lem-` namespace. Keep instructions and resources portable across compatible agents. Keep skill resources inside the skill package.
-
-Inspect the worktree before changes. Preserve unrelated work. Check the final diff before a commit. Commit, push, and publish releases only when the user requests these actions.
-
-Run `gh skill publish --dry-run` to validate the skills. Use temporary installation directories for verification.
-
-## Markdown
-
-Write prose in normal paragraphs. Keep each paragraph on one source line. Do not insert a line break after each sentence or wrap prose at a fixed column width. Separate paragraphs with a blank line.
+- Always use ASD-STE100 Simplified Technical English in all comments and documentation.
+- Keep each Markdown prose paragraph on one source line. Preserve structural line breaks in lists, tables, and code blocks.
+- Format Markdown tables with aligned columns, consistent cell padding, and a header separator row.
+- Use `git` and `gh` only for read-only operations. Apply this rule to aliases, scripts, and `gh api` requests.
+- After edits, run `mise run format`. Then run `mise run check`.
+- When the work is complete and the required checks pass, run `git diff HEAD`. Also inspect untracked files from `git status --short`. Include one commit title that covers all changes in the final response.

@@ -1,0 +1,52 @@
+[tools]
+node = "26.13.0"
+"npm:prettier" = "3.9.10"
+"npm:markdownlint-cli" = "0.50.0"
+shfmt = "3.14.1"
+shellcheck = "0.11.0"
+tombi = "1.11.2"
+
+[tasks.format]
+description = "Format Markdown, JSON, TOML, and Bash files."
+quiet = true
+output = "interleave"
+run = '''
+set -eu
+bash scripts/run-step.sh 'Formatting Markdown' prettier --write --ignore-path .gitignore '**/*.md'
+bash scripts/run-step.sh 'Formatting JSON' prettier --write --ignore-path .gitignore '**/*.json'
+bash scripts/run-step.sh 'Formatting Bash' shfmt -w -i 2 -ci scripts
+bash scripts/run-step.sh 'Formatting TOML' tombi format
+'''
+
+[tasks."format:check"]
+description = "Check file formatting without changes."
+quiet = true
+output = "interleave"
+run = '''
+set -eu
+bash scripts/run-step.sh 'Checking Markdown formatting' prettier --check --ignore-path .gitignore '**/*.md'
+bash scripts/run-step.sh 'Checking JSON formatting' prettier --check --ignore-path .gitignore '**/*.json'
+bash scripts/run-step.sh 'Checking Bash formatting' shfmt -d -i 2 -ci scripts
+bash scripts/run-step.sh 'Checking TOML formatting' tombi format --check
+'''
+
+[tasks.lint]
+description = "Check Markdown, TOML, and Bash files."
+quiet = true
+output = "interleave"
+run = '''
+set -eu
+bash scripts/run-step.sh 'Linting Markdown' markdownlint --ignore-path .gitignore '**/*.md'
+bash scripts/run-step.sh 'Linting Bash' find scripts -type f -name '*.sh' -exec shellcheck {} +
+bash scripts/run-step.sh 'Linting TOML' tombi lint
+'''
+
+[tasks.check]
+description = "Run format, lint, and skill validation checks."
+quiet = true
+depends = [{ task = "format:check" }, { task = "lint" }]
+run = "gh skill publish --dry-run"
+
+[tasks.release]
+description = "Tag and push the next version: mise run release [patch|minor|major]"
+run = "scripts/release.sh"

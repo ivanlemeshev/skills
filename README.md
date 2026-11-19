@@ -58,18 +58,18 @@ Repeat with `--agent claude-code` and a different temporary directory.
 
 ## Release
 
-This repository uses a `VERSION` file as a versioning convention. The Agent Skills standard does not require this file. Its value matches the release tag: `1.0.0` produces `v1.0.0`.
+Release versions come from Git tags. The latest `vX.Y.Z` tag is the base for the next release.
 
-Update the skills and README. Run this command from `main` with Make, Git, GitHub CLI, and a POSIX shell. Replace `1.0.1` with the new version:
+Update the skills and README. Run the release task from `main`:
 
 ```sh
-make release VERSION=1.0.1
+mise run release -- patch
 ```
 
-The command checks the skills, updates `VERSION`, commits all repository changes, pushes `main`, and publishes the release. If you already update `VERSION`, run:
+Use `minor` or `major` instead of `patch` when needed. The task commits and pushes `main`, then creates and pushes the next version tag. GitHub Actions validates the tag with mise and publishes the GitHub release. Run the local check before pushing:
 
 ```sh
-make release
+mise run check
 ```
 
 ## License
