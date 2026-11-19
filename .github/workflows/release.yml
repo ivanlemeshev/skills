@@ -21,7 +21,12 @@ jobs:
           fetch-depth: 0
       - uses: jdx/mise-action@v5
       - run: mise run check
-      - name: Publish the skill release
+      - name: Create the GitHub release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh skill publish --tag "${GITHUB_REF_NAME}"
+        run: |
+          if gh release view "${GITHUB_REF_NAME}" >/dev/null 2>&1; then
+            echo "Release ${GITHUB_REF_NAME} already exists."
+            exit 0
+          fi
+          gh release create "${GITHUB_REF_NAME}" --verify-tag --generate-notes
