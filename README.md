@@ -4,9 +4,10 @@ Reusable skills in the [Agent Skills format](https://agentskills.io/specificatio
 
 ## Available skills
 
-| Skill        | Purpose                                                           | Requirements                                     |
-| ------------ | ----------------------------------------------------------------- | ------------------------------------------------ |
-| `lem-review` | Review pull requests, branches, staged changes, or local changes. | Git. GitHub CLI for GitHub pull request reviews. |
+| Skill                   | Purpose                                                                | Requirements                                     |
+| ----------------------- | ---------------------------------------------------------------------- | ------------------------------------------------ |
+| `lem-review`            | Review pull requests, branches, staged changes, or local changes.      | Git. GitHub CLI for GitHub pull request reviews. |
+| `lem-technical-writing` | Write and edit short, clear technical documentation and code comments. | None.                                            |
 
 ## Install
 
@@ -42,7 +43,7 @@ Add each new skill under `skills/lem-<name>/`. Use the same name in the folder a
 
 ## Validate
 
-This command checks the skill format without publishing a release.
+This command checks all skills without publishing a release.
 
 ```sh
 gh skill publish --dry-run
