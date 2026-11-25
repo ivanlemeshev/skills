@@ -7,6 +7,7 @@ Reusable skills in the [Agent Skills format](https://agentskills.io/specificatio
 | Skill                   | Purpose                                                                | Requirements                                     |
 | ----------------------- | ---------------------------------------------------------------------- | ------------------------------------------------ |
 | `lem-review`            | Review pull requests, branches, staged changes, or local changes.      | Git. GitHub CLI for GitHub pull request reviews. |
+| `lem-tech-design-docs`  | Write, verify, and edit API, system design, and plan documents.        | None.                                            |
 | `lem-technical-writing` | Write and edit short, clear technical documentation and code comments. | None.                                            |
 
 ## Install
